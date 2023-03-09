@@ -11,8 +11,11 @@ import Project.Book_My_Show.Repository.ShowRepository;
 import Project.Book_My_Show.Repository.TicketRepository;
 import Project.Book_My_Show.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.*;
 import javax.swing.plaf.PanelUI;
 import javax.xml.crypto.Data;
 import java.util.Date;
@@ -32,6 +35,8 @@ public class TicketService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JavaMailSender javaMailSender;
 
 //    @Autowired
 //    JavaMailSender javaMailSender;
@@ -110,14 +115,14 @@ public class TicketService {
         String body = "Hi this is to confirm your booking for seat No "+allotedSeats +"for the movie : " + ticketEntity.getMovieName();
 
 
-//        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
-//        MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
-//        mimeMessageHelper.setFrom("backeendacciojob@gmail.com");
-//        mimeMessageHelper.setTo(userEntity.getEmail());
-//        mimeMessageHelper.setText(body);
-//        mimeMessageHelper.setSubject("Confirming your booked Ticket");
+        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage,true);
+        mimeMessageHelper.setFrom("backeendacciojob@gmail.com");
+        mimeMessageHelper.setTo(userEntity.getEmail());
+        mimeMessageHelper.setText(body);
+        mimeMessageHelper.setSubject("Confirming your booked Ticket");
 
-//        javaMailSender.send(mimeMessage);
+        javaMailSender.send(mimeMessage);
 
 
         return "Ticket has successfully been added";

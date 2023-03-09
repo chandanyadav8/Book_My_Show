@@ -3,7 +3,7 @@ package Project.Book_My_Show.Entities;
 
 import lombok.*;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

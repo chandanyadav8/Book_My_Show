@@ -7,8 +7,8 @@ public class ShowConvertors {
 
     public  static ShowEntity  convertEntryToEntity(ShowEntryDto showEntryDto){
 
-        ShowEntity showEntity=ShowEntity.builder().showDate(showEntryDto.getLocalDate())
-                .showTime(showEntryDto.getLocalTime()).showType(showEntryDto.getShowType())
+        ShowEntity showEntity=ShowEntity.builder().showDate(showEntryDto.getShowDate())
+                .showTime(showEntryDto.getShowTime()).showType(showEntryDto.getShowType())
                 .build();
 
           return  showEntity;

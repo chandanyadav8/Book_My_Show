@@ -4,7 +4,7 @@ import Project.Book_My_Show.Enums.Genre;
 import Project.Book_My_Show.Enums.Language;
 import lombok.Data;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Data

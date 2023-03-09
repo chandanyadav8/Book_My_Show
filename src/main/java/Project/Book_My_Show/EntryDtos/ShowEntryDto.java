@@ -10,8 +10,8 @@ import java.time.LocalTime;
 @Data
 public class ShowEntryDto {
 
-   private LocalDate localDate;
-    private LocalTime localTime;
+   private LocalDate showDate;
+    private LocalTime showTime;
     private ShowType showType;
     private  int movieId;
     private int theaterId;
