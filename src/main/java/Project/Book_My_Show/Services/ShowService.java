@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Project.Book_My_Show.Repository.TheaterRepository;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -95,5 +96,19 @@ public class ShowService {
             seatEntityList.add(showSeatEntity); //Adding it to the list
         }
         return  seatEntityList;
+    }
+    public List<LocalTime> getShowTime(String theater, String movie) throws Exception
+    {
+        TheaterEntity theaterEntity=theaterRepository.findByName(theater);
+        List<ShowEntity>showEntityList=theaterEntity.getShowEntityList();
+        List<LocalTime>timeList=new ArrayList<>();
+        for(ShowEntity i:showEntityList){
+            if(i.getMovieEntity().getMovieName().equals(movie))
+            {
+                timeList.add(i.getShowTime());
+            }
+
+        }
+        return timeList;
     }
 }

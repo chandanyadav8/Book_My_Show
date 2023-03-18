@@ -1,10 +1,14 @@
 package Project.Book_My_Show.Services;
 
 import Project.Book_My_Show.Convertors.TheaterConvertor;
+import Project.Book_My_Show.Entities.MovieEntity;
+import Project.Book_My_Show.Entities.ShowEntity;
 import Project.Book_My_Show.Entities.TheaterEntity;
 import Project.Book_My_Show.Entities.TheaterSeatEntity;
 import Project.Book_My_Show.EntryDtos.TheaterEntryDto;
 import Project.Book_My_Show.Enums.SeatType;
+import Project.Book_My_Show.ResponseDto.GetMovieResponseDto;
+import Project.Book_My_Show.ResponseDto.GetTheaterResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Project.Book_My_Show.Repository.TheaterRepository;
@@ -77,4 +81,37 @@ public class TheaterService {
                  return  theaterSeatEntitiesList;
 
       }
+      public List<GetTheaterResponseDto>getTheaterList() throws Exception
+      {
+          List<TheaterEntity>theaterEntityList=theaterRepository.findAll();
+          List<GetTheaterResponseDto>getTheaterResponseDtoList=new ArrayList<>();
+          for(TheaterEntity i:theaterEntityList)
+          {
+              GetTheaterResponseDto getTheaterResponseDto=new GetTheaterResponseDto();
+              getTheaterResponseDto.setId(i.getId());
+              getTheaterResponseDto.setName(i.getName());
+              getTheaterResponseDto.setLocation(i.getLocation());
+              getTheaterResponseDtoList.add(getTheaterResponseDto);
+          }
+
+          return getTheaterResponseDtoList;
+      }
+    public List<GetMovieResponseDto>getAllMoviesInTheater(String theaterName) {
+        TheaterEntity theaterEntity = theaterRepository.findByName(theaterName);
+        List<ShowEntity> showEntityList = theaterEntity.getShowEntityList();
+        List<GetMovieResponseDto> movieResponseDtoList = new ArrayList<>();
+        for (ShowEntity i : showEntityList) {
+            GetMovieResponseDto movieResponseDto = new GetMovieResponseDto();
+            movieResponseDto.setId(i.getMovieEntity().getId());
+            movieResponseDto.setMovieName(i.getMovieEntity().getMovieName());
+            movieResponseDto.setDuration(i.getMovieEntity().getDuration());
+            movieResponseDto.setRatings(i.getMovieEntity().getRatings());
+            movieResponseDto.setGenre(i.getMovieEntity().getGenre());
+            movieResponseDto.setLanguage(i.getMovieEntity().getLanguage());
+            movieResponseDtoList.add(movieResponseDto);//adding the movie into the list
+        }
+
+
+        return movieResponseDtoList;
+    }
 }
